@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://vibe-coding-profit-site-850850.greensun00.workers.dev/sitemap.xml
