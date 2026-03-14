@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>바이브 코딩 기초, 수익형 웹 사이트 만들고 돈 벌기</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="container hero">
+    <p class="eyebrow">AI Product Builder 실험</p>
+    <h1>바이브 코딩 기초, 수익형 웹 사이트 만들고 돈 벌기</h1>
+    <p>영상 흐름대로: 빠른 제작 → 기능 추가(문의/댓글) → 수익화(광고)까지.</p>
+    <a class="cta" href="#contact">문의하기 기능 보기</a>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>이번 버전 구현 범위 (영상 기반)</h2>
+      <ul>
+        <li>문의하기 폼</li>
+        <li>댓글 기능</li>
+        <li>광고 수익화 자리(애드센스 삽입 준비)</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>문의하기</h2>
+      <form id="contact-form" class="stack">
+        <input id="name" type="text" placeholder="이름" required />
+        <input id="email" type="email" placeholder="이메일" required />
+        <textarea id="message" rows="4" placeholder="문의 내용을 입력하세요" required></textarea>
+        <button type="submit">문의 등록</button>
+      </form>
+      <p id="contact-msg" class="msg"></p>
+      <small>현재는 로컬 저장 버전(MVP). 다음 단계에서 Formspree/Google Forms/Firebase로 연동 가능.</small>
+    </section>
+
+    <section id="comments">
+      <h2>댓글</h2>
+      <form id="comment-form" class="stack-inline">
+        <input id="comment-author" type="text" placeholder="닉네임" required />
+        <input id="comment-text" type="text" placeholder="댓글을 입력하세요" required />
+        <button type="submit">등록</button>
+      </form>
+      <ul id="comment-list" class="comment-list"></ul>
+    </section>
+
+    <section>
+      <h2>광고 수익화 준비</h2>
+      <div class="ad-box">
+        <p><strong>Ad Slot Placeholder</strong></p>
+        <p>애드센스 승인 후 여기에 광고 스크립트 삽입</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>© <span id="year"></span> AI Product Builder Lab</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
