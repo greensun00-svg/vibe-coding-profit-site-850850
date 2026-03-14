@@ -31,6 +31,19 @@ const contactMsg = $("contact-msg");
 const commentForm = $("comment-form");
 const commentList = $("comment-list");
 
+const RATE_LIMIT_MS = {
+  contact: 30_000,
+  comment: 10_000,
+};
+
+function canSubmit(key, windowMs) {
+  const now = Date.now();
+  const last = Number(localStorage.getItem(key) || 0);
+  if (now - last < windowMs) return false;
+  localStorage.setItem(key, String(now));
+  return true;
+}
+
 function escapeHtml(str = "") {
   return str.replace(/[&<>'"]/g, (ch) => ({
     "&": "&amp;",
@@ -43,6 +56,18 @@ function escapeHtml(str = "") {
 
 contactForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  // honeypot: 봇 필드가 채워져 있으면 무시
+  if ($("website")?.value) {
+    contactMsg.textContent = "요청이 차단되었습니다.";
+    return;
+  }
+
+  if (!canSubmit("rl_contact", RATE_LIMIT_MS.contact)) {
+    contactMsg.textContent = "잠시 후 다시 시도해주세요. (30초 제한)";
+    return;
+  }
+
   const payload = {
     name: $("name").value.trim(),
     email: $("email").value.trim(),
@@ -64,6 +89,12 @@ contactForm.addEventListener("submit", async (e) => {
 
 commentForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  if (!canSubmit("rl_comment", RATE_LIMIT_MS.comment)) {
+    alert("댓글은 10초에 1회만 등록할 수 있어요.");
+    return;
+  }
+
   const author = $("comment-author").value.trim();
   const text = $("comment-text").value.trim();
   if (!author || !text) return;
